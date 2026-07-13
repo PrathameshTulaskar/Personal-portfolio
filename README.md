@@ -10,7 +10,8 @@ Responsive Flutter portfolio app for web, Android, and iOS. Built with Clean Arc
 - `assets/images/profile.png` is the professional profile photo.
 - `assets/documents/Prathamesh_J_Tulaskar_Resume.pdf` is the bundled resume.
 - `web/manifest.json` contains the web app install metadata.
-- Replace placeholder LinkedIn, GitHub, Play Store, App Store, demo video, Google Analytics, and production URL values when ready.
+- Publish the repository as `personal-portfolio` for this GitHub Pages URL: `https://prathameshtulaskar.github.io/personal-portfolio/`.
+- Replace placeholder App Store, demo video, and Google Analytics values when ready.
 
 ## Current Features
 
