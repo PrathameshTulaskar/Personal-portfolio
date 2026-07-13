@@ -8,6 +8,7 @@ class Project {
     required this.colors,
     required this.techStack,
     required this.features,
+    this.imageAssets = const [],
     required this.githubUrl,
     required this.playStoreUrl,
     required this.appStoreUrl,
@@ -20,6 +21,7 @@ class Project {
   final List<Color> colors;
   final List<String> techStack;
   final List<String> features;
+  final List<String> imageAssets;
   final String githubUrl;
   final String playStoreUrl;
   final String appStoreUrl;

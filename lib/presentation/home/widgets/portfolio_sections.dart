@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../domain/entities/blog_post.dart';
 import '../../../domain/entities/certification.dart';
-import '../../../domain/entities/demo_item.dart';
 import '../../../domain/entities/experience.dart';
 import '../../../domain/entities/metric.dart';
 import '../../../domain/entities/portfolio_profile.dart';
@@ -472,7 +471,7 @@ class ProjectsSection extends StatelessWidget {
       eyebrow: 'Projects',
       title: 'Beautiful app case studies',
       child: SizedBox(
-        height: 315,
+        height: 330,
         child: Scrollbar(
           thumbVisibility: true,
           child: ListView.separated(
@@ -512,24 +511,7 @@ class ProjectCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 92,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(18),
-              ),
-              gradient: LinearGradient(
-                colors: [AppColors.ink, ...project.colors],
-              ),
-            ),
-            child: Center(
-              child: Icon(
-                Icons.phone_iphone,
-                size: 38,
-                color: Colors.white.withValues(alpha: .9),
-              ),
-            ),
-          ),
+          ProjectPreview(project: project),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(14),
@@ -599,56 +581,86 @@ class ProjectCard extends StatelessWidget {
 }
 
 class LiveDemoSection extends StatelessWidget {
-  const LiveDemoSection({required this.demos, super.key});
+  const LiveDemoSection({required this.projects, super.key});
 
-  final List<DemoItem> demos;
+  final List<Project> projects;
 
   @override
   Widget build(BuildContext context) {
+    final highlightedProjects = projects
+        .where((project) => project.imageAssets.isNotEmpty)
+        .take(3)
+        .toList();
+
     return SectionShell(
-      eyebrow: 'Live Demo',
-      title: 'Video walkthrough ready sections',
+      eyebrow: 'App Highlights',
+      title: 'Published app proof and case-study notes',
       child: ResponsiveCardGrid(
-        children: demos
+        children: highlightedProjects
             .map(
-              (demo) => Surface(
+              (project) => Surface(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AspectRatio(
                       aspectRatio: 16 / 9,
-                      child: InkWell(
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(14),
-                        onTap: () => Get.find<PortfolioController>()
-                            .openExternalUrl('#', fallbackLabel: demo.title),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: AppColors.ink,
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: const Center(
-                            child: Icon(
-                              Icons.play_circle_outline,
-                              color: Colors.white,
-                              size: 58,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.asset(
+                              project.imageAssets.first,
+                              fit: BoxFit.cover,
+                              alignment: Alignment.topCenter,
+                              filterQuality: FilterQuality.medium,
                             ),
-                          ),
+                            DecoratedBox(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.transparent,
+                                    AppColors.ink.withValues(alpha: .55),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                     const SizedBox(height: 10),
+                    Eyebrow(project.tag),
                     Text(
-                      demo.title,
+                      project.title,
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
+                    const SizedBox(height: 4),
                     Text(
-                      demo.description,
+                      project.features.take(2).join(' • '),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: AppColors.muted,
                         height: 1.35,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: OutlinedButton.icon(
+                        onPressed: () =>
+                            Get.find<PortfolioController>().openExternalUrl(
+                              project.playStoreUrl,
+                              fallbackLabel: project.title,
+                            ),
+                        icon: const Icon(Icons.shop_outlined, size: 18),
+                        label: const Text('Play Store'),
                       ),
                     ),
                   ],
@@ -657,6 +669,74 @@ class LiveDemoSection extends StatelessWidget {
             )
             .toList(),
       ),
+    );
+  }
+}
+
+class ProjectPreview extends StatelessWidget {
+  const ProjectPreview({required this.project, super.key});
+
+  final Project project;
+
+  @override
+  Widget build(BuildContext context) {
+    final hasImages = project.imageAssets.isNotEmpty;
+    return Container(
+      height: 112,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(18)),
+        gradient: LinearGradient(colors: [AppColors.ink, ...project.colors]),
+      ),
+      child: hasImages
+          ? ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(18),
+              ),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    project.imageAssets.first,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                    filterQuality: FilterQuality.medium,
+                  ),
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.transparent,
+                          AppColors.ink.withValues(alpha: .78),
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 12,
+                    right: 12,
+                    bottom: 10,
+                    child: Text(
+                      project.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : Center(
+              child: Icon(
+                Icons.phone_iphone,
+                size: 38,
+                color: Colors.white.withValues(alpha: .9),
+              ),
+            ),
     );
   }
 }

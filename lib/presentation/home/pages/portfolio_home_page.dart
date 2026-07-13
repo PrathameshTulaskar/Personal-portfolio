@@ -59,7 +59,9 @@ class PortfolioHomePage extends GetView<PortfolioController> {
                             ),
                             _SectionAnchor(
                               section: PortfolioSection.demos,
-                              child: LiveDemoSection(demos: profile.demos),
+                              child: LiveDemoSection(
+                                projects: profile.projects,
+                              ),
                             ),
                             _SectionAnchor(
                               section: PortfolioSection.stats,

@@ -125,6 +125,11 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
             'Secure financial data handling',
             'Client requirement ownership',
           ],
+          imageAssets: [
+            'assets/images/projects/alphacapital_1.png',
+            'assets/images/projects/alphacapital_2.png',
+            'assets/images/projects/alphacapital_3.png',
+          ],
           githubUrl: '#',
           playStoreUrl:
               'https://play.google.com/store/apps/details?id=com.alphaInvest.alpha_capital&pcampaignid=web_share',
@@ -143,6 +148,11 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
             'Project workflows',
             'Role-focused UX',
           ],
+          imageAssets: [
+            'assets/images/projects/hydropure_1.png',
+            'assets/images/projects/hydropure_2.png',
+            'assets/images/projects/hydropure_3.png',
+          ],
           githubUrl: '#',
           playStoreUrl:
               'https://play.google.com/store/apps/details?id=com.hydropure.hydropure_systems&pcampaignid=web_share',
@@ -160,6 +170,11 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
             'Community updates',
             'Trust communication',
             'Production Play Store release',
+          ],
+          imageAssets: [
+            'assets/images/projects/raidesh_1.png',
+            'assets/images/projects/raidesh_2.png',
+            'assets/images/projects/raidesh_3.png',
           ],
           githubUrl: '#',
           playStoreUrl:
@@ -226,19 +241,19 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
       ],
       demos: [
         DemoItem(
-          title: 'Before / After',
+          title: 'Play Store screenshots',
           description:
-              'Show app redesigns, performance upgrades, and UI improvements with embedded walkthrough videos.',
+              'Published app screenshots are used as compact visual proof until demo videos are recorded.',
         ),
         DemoItem(
-          title: 'Feature Walkthrough',
+          title: 'App case studies',
           description:
-              'Add short demos for login, dashboard, payment, booking, and release workflows.',
+              'Each project highlights domain, architecture, tech stack, and store availability.',
         ),
         DemoItem(
-          title: 'Architecture Demo',
+          title: 'More demos soon',
           description:
-              'Explain clean architecture, state management, caching, and API modules visually.',
+              'Short feature walkthroughs can be added later from screen recordings.',
         ),
       ],
       certifications: [
