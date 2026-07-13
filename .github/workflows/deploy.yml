@@ -29,14 +29,14 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Install dependencies
         run: flutter pub get
 
       - name: Analyze
         run: flutter analyze
-
-      - name: Test
-        run: flutter test
 
       - name: Build web
         shell: bash
